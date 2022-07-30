@@ -11,8 +11,15 @@ body {
   background-color: whitesmoke;
 }
 
-figure:hover {
+img:hover {
   transform: scale(1.5);
+}
+img:focus {
+  transform: scale(1.5);
+}
+figure {
+  justify-content: center;
+  display: flex;
 }
 
 h1 {
@@ -82,7 +89,6 @@ ul.nav > li:hover > a {
   width: 50%;
 }
 
-/* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
