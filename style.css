@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Muli&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Quicksand&display=swap");
+
 body {
   font-family: "Montserrat", sans-serif;
   color: rgba(0, 0, 0, 1);
@@ -7,19 +8,62 @@ body {
   line-height: 1.58;
   letter-spacing: -0.003em;
   font-size: 20px;
-  padding: 0px;
   background-color: whitesmoke;
+  height: 100%;
+  margin: 0px;
 }
 
-img:hover {
+header {
+  background-color: rgb(242, 124, 52, 0.35);
+}
+.wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.content {
+  height: 65vh;
+  flex-grow: 1;
+  overflow: auto;
+  min-height: 2em;
+  /* height: 550px; */
+}
+
+footer {
+  height: 7.5vh;
+  flex-shrink: 0;
+  text-align: center;
+  border-top: 1px;
+  border-color: black;
+  background-color: rgb(242, 124, 52, 0.35);
+  color: white;
+}
+
+a img {
+  display: block;
+  margin: auto;
+  min-width: 256px;
+}
+#self {
+  width: 300px;
+}
+img:hover:not(#self) {
   transform: scale(1.5);
 }
-img:focus {
-  transform: scale(1.5);
-}
+
 figure {
   justify-content: center;
-  display: flex;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+figcaption {
+  display: table-caption;
+  caption-side: top;
+  text-align: center;
 }
 
 h1 {
@@ -31,6 +75,7 @@ h1 {
   letter-spacing: -0.02em;
   color: rgba(0, 0, 0, 0.8);
   -webkit-font-smoothing: antialiased;
+  padding: 10px;
 }
 h2 {
   font-family: "Montserrat", sans-serif;
@@ -41,6 +86,7 @@ h2 {
   letter-spacing: -0.02em;
   color: rgba(0, 0, 0, 0.8);
   -webkit-font-smoothing: antialiased;
+  padding: 10px;
 }
 h3 {
   font-family: "Montserrat", sans-serif;
@@ -55,7 +101,7 @@ h3 {
 
 ul.nav {
   padding-left: 10px;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
   text-align: center;
 }
 
@@ -87,6 +133,8 @@ ul.nav > li:hover > a {
 .column {
   float: left;
   width: 50%;
+  padding-top: 10px;
+  justify-content: center;
 }
 
 .row:after {
@@ -99,9 +147,7 @@ div.divider {
   background-color: rgb(0, 11, 92);
   height: 2px;
 }
-footer {
-  text-align: center;
-  padding: 2px;
-  background-color: rgb(242, 124, 52);
-  color: white;
+
+.bkgdDesc {
+  margin-right: 100px;
 }
