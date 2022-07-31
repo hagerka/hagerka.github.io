@@ -1,14 +1,16 @@
 const allElements = document.getElementsByTagName("p");
-console.log(allElements);
 const allIds = [];
 const allFrom = [];
 const allClasses = [];
 
-const element = document.getElementById("date-button");
-console.log(element);
-//element.addEventListener("click", orderByDate);
+const dateButton = document.getElementById("datebtn");
+dateButton.addEventListener("click", orderByDate);
+const fromButton = document.getElementById("frombtn");
+fromButton.addEventListener("click", orderByAuthor);
 
 function orderByDate() {
+  const frag = document.createDocumentFragment();
+
   for (let i = 0, n = allElements.length; i < n; i++) {
     let el = allElements[i];
     if (el.id) {
@@ -39,5 +41,7 @@ function orderByAuthor() {
     }
   }
   allFrom.sort();
+  console.log(`ordered by author`);
+
   return allFrom;
 }
