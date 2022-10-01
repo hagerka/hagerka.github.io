@@ -50,7 +50,7 @@ a img {
   width: 300px;
 }
 img:hover:not(#self) {
-  transform: scale(1.5);
+  transform: scale(1.15);
 }
 
 figure {
@@ -75,7 +75,7 @@ h1 {
   letter-spacing: -0.02em;
   color: rgba(0, 0, 0, 0.8);
   -webkit-font-smoothing: antialiased;
-  padding: 10px;
+  padding-left: 10px;
 }
 h2 {
   font-family: "Montserrat", sans-serif;
@@ -86,7 +86,7 @@ h2 {
   letter-spacing: -0.02em;
   color: rgba(0, 0, 0, 0.8);
   -webkit-font-smoothing: antialiased;
-  padding: 10px;
+  padding-left: 10px;
 }
 h3 {
   font-family: "Montserrat", sans-serif;
@@ -107,7 +107,7 @@ ul.nav {
 
 ul.nav > li {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 10px 10px;
 }
 ul.nav > li > a:link,
 a:visited {
@@ -132,7 +132,7 @@ ul.nav > li:hover > a {
 }
 .column {
   float: left;
-  width: 50%;
+  width: 25%;
   padding-top: 10px;
   justify-content: center;
 }
