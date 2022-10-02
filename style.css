@@ -149,10 +149,14 @@ ul.nav > li > a:hover {
   color: rgb(242, 124, 52);
   display: inline-block;
 }
-.mini-nav > li:hover > a {
-  background-color: white;
+ul.mini-nav > a {
   color: rgb(0, 11, 92);
 }
+
+/* .mini-nav > li:hover > a {
+  background-color: white;
+  color: rgb(0, 11, 92);
+} */
 ul.nav > li:hover > .mini-nav > li > a {
   color: white;
   background-color: rgb(0, 11, 92);
