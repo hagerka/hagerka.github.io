@@ -17,7 +17,7 @@ body {
 }
 
 header {
-  background-color: rgb(242, 124, 52, 0.5);
+  background-color: white;
 }
 .wrapper {
   height: 100vh;
@@ -42,7 +42,7 @@ footer {
   text-align: center;
   border-top: 2px;
   border-color: rgb(0, 11, 92);
-  background-color: rgb(242, 124, 52, 0.5);
+  /* background-color: rgb(242, 124, 52, 1); */
   color: white;
 }
 
@@ -57,7 +57,9 @@ a img {
 img:hover:not(#self) {
   transform: scale(1.05);
 }
-
+#purpose-statement {
+  padding: 25px;
+}
 figure {
   justify-content: center;
   display: table;
@@ -79,7 +81,8 @@ h1 {
   font-size: 40px;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  color: rgba(0, 11, 92);
+  color: #ff5c34;
+  background-color: white;
   -webkit-font-smoothing: antialiased;
   padding-left: 20px;
   font-weight: bolder;
@@ -116,7 +119,7 @@ ul.nav {
   text-align: center;
   list-style-type: none;
   width: 12%;
-  height: 75vh; /* Full height */
+  height: 73.5vh; /* Full height */
   position: fixed; /* Make it stick, even on scroll */
   overflow: auto; /* Enable scrolling if the sidenav has too much content */
   border-right: 2px solid rgb(0, 11, 92);
@@ -204,7 +207,7 @@ div.listedItems {
   margin: 5px;
   align-content: center;
   border-radius: 15px;
-  background: #00bfb6;
+  background: rgb(130, 63, 152);
   color: #fff;
   padding: 5px;
   text-align: center;
@@ -216,7 +219,7 @@ div.listedItems {
   margin: 0px;
   padding: 5px;
   border-radius: 15px;
-  background: whitesmoke;
+  background: white;
   border-color: #fff;
   color: rgb(0, 11, 92);
   padding: 0px;
@@ -231,8 +234,8 @@ div.listedItems {
   height: 0px;
   position: absolute;
   border-left: 15px solid transparent;
-  border-right: 15px solid #00bfb6;
-  border-top: 15px solid #00bfb6;
+  border-right: 15px solid rgb(130, 63, 152);
+  border-top: 15px solid rgb(130, 63, 152);
   border-bottom: 15px solid transparent;
   left: -16px;
   top: 0px;
@@ -248,7 +251,7 @@ div.listedItems {
   min-width: 120px;
   float: left;
   padding: 15px;
-  border: 2px solid rgb(242, 124, 52);
+  border: 3px solid rgb(242, 124, 52);
   border-radius: 20%;
   text-align: center;
 }
@@ -261,10 +264,75 @@ div.listedItems {
 .speech-text {
   padding: 25px;
   text-align: center;
+  font-weight: normal;
+  font-size: 21px;
+  line-height: 1.5;
+  color: rgb(130, 63, 152);
 }
 
 .emphasis {
   font-weight: bold;
   color: rgb(0, 11, 92);
   /* color: rgb(242, 124, 52); */
+}
+#float-child-1 {
+  width: 20%;
+  float: left;
+  transition: color 2s ease-out 100ms, font-size 2s ease-out 100ms;
+}
+#float-child-2 {
+  width: 20%;
+  float: left;
+  transition: color 2s ease-out 100ms, font-size 2s ease-out 100ms;
+}
+#float-child-3 {
+  width: 20%;
+  float: left;
+  transition: color 2s ease-out 100ms, font-size 2s ease-out 100ms;
+}
+#float-child-4 {
+  width: 20%;
+  float: left;
+  transition: color 2s ease-out 100ms, font-size 2s ease-out 100ms;
+}
+#float-child-5 {
+  width: 20%;
+  float: left;
+  transition: color 2s ease-out 100ms, font-size 2s ease-out 100ms;
+}
+
+#float-child-1:hover,
+#float-child-1:focus {
+  color: rgb(218, 41, 28);
+  font-size: 40px;
+}
+
+#float-child-2:hover,
+#float-child-2:focus {
+  color: rgb(242, 106, 54);
+  font-size: 40px;
+}
+#float-child-3:hover,
+#float-child-3:focus {
+  color: rgb(0, 129, 57);
+  font-size: 40px;
+}
+#float-child-4:hover,
+#float-child-4:focus {
+  color: rgb(0, 127, 175);
+  font-size: 40px;
+}
+#float-child-5:hover,
+#float-child-5:focus {
+  color: rgb(130, 63, 152);
+  font-size: 40px;
+}
+
+.unfocused {
+  display: none;
+}
+.focused {
+  display: block;
+  font-size: 20px;
+  color: rgb(0, 11, 92);
 }

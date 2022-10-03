@@ -1,43 +1,26 @@
-const allElements = document.getElementsByTagName("p");
-console.log(allElements);
-const allIds = [];
-const allFrom = [];
-const allClasses = [];
+let childArray = document.querySelectorAll('[id^="float-child"]');
+let focusFlag = false;
+childArray.forEach((element) => {
+  let ghostEl = element.getElementsByTagName("p")[0];
+  element.addEventListener("mouseover", (event) => {
+    ghostEl.classList.add("focused");
+    ghostEl.classList.remove("unfocused");
+  });
+  element.addEventListener("focus", (event) => {
+    ghostEl.classList.add("focused");
+    ghostEl.classList.remove("unfocused");
+    focusFlag = true;
+  });
 
-const element = document.getElementById("date-button");
-console.log(element);
-//element.addEventListener("click", orderByDate);
-
-function orderByDate() {
-  for (let i = 0, n = allElements.length; i < n; i++) {
-    let el = allElements[i];
-    if (el.id) {
-      allIds.push(el.id.slice(4, 8) + el.id.slice(0, 4));
+  element.addEventListener("mouseout", (event) => {
+    if (!focusFlag) {
+      ghostEl.classList.add("unfocused");
+      ghostEl.classList.remove("focused");
     }
-  }
-  allIds.sort();
-  console.log(`ordered by date`);
-  return allIds;
-}
-
-function orderByType() {
-  for (let i = 0, n = allElements.length; i < n; ++i) {
-    let el = allElements[i];
-    if (el.className) {
-      allClasses.push(el.className);
-    }
-  }
-  allClasses.sort();
-  return allClasses;
-}
-
-function orderByAuthor() {
-  for (let i = 0, n = allElements.length; i < n; ++i) {
-    let el = allElements[i];
-    if (el.getAttribute("from")) {
-      allFrom.push(el.getAttribute("from"));
-    }
-  }
-  allFrom.sort();
-  return allFrom;
-}
+  });
+  element.addEventListener("blur", (event) => {
+    ghostEl.classList.add("unfocused");
+    ghostEl.classList.remove("focused");
+    focusFlag = false;
+  });
+});
