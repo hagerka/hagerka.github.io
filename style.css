@@ -11,7 +11,7 @@ body {
   line-height: 1.58;
   letter-spacing: -0.003em;
   font-size: 20px;
-  background-color: whitesmoke;
+  background-color: #f7f8f9;
   height: 100%;
   margin: 0px;
 }
@@ -42,7 +42,7 @@ footer {
   text-align: center;
   border-top: 2px;
   border-color: rgb(0, 11, 92);
-  /* background-color: rgb(242, 124, 52, 1); */
+  background-color: rgb(183, 195, 120, 0.35);
   color: white;
 }
 
@@ -156,10 +156,6 @@ ul.mini-nav > a {
   color: rgb(0, 11, 92);
 }
 
-/* .mini-nav > li:hover > a {
-  background-color: white;
-  color: rgb(0, 11, 92);
-} */
 ul.nav > li:hover > .mini-nav > li > a {
   color: white;
   background-color: rgb(0, 11, 92);
@@ -335,4 +331,11 @@ div.listedItems {
   display: block;
   font-size: 20px;
   color: rgb(0, 11, 92);
+  margin-left: 20px;
+}
+
+.text-container {
+  display: block;
+  min-height: 10px;
+  margin-top: 100px;
 }

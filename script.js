@@ -1,26 +1,28 @@
 let childArray = document.querySelectorAll('[id^="float-child"]');
 let focusFlag = false;
+
 childArray.forEach((element) => {
-  let ghostEl = element.getElementsByTagName("p")[0];
+  let relatedEl = document.getElementById("text-" + element.id);
+
   element.addEventListener("mouseover", (event) => {
-    ghostEl.classList.add("focused");
-    ghostEl.classList.remove("unfocused");
+    relatedEl.classList.add("focused");
+    relatedEl.classList.remove("unfocused");
   });
   element.addEventListener("focus", (event) => {
-    ghostEl.classList.add("focused");
-    ghostEl.classList.remove("unfocused");
-    focusFlag = true;
+    relatedEl.classList.add("focused");
+    relatedEl.classList.remove("unfocused");
+    // focusFlag = true;
   });
 
   element.addEventListener("mouseout", (event) => {
-    if (!focusFlag) {
-      ghostEl.classList.add("unfocused");
-      ghostEl.classList.remove("focused");
-    }
+    // if (!focusFlag) {
+    relatedEl.classList.add("unfocused");
+    relatedEl.classList.remove("focused");
+    // }
   });
   element.addEventListener("blur", (event) => {
-    ghostEl.classList.add("unfocused");
-    ghostEl.classList.remove("focused");
-    focusFlag = false;
+    relatedEl.classList.add("unfocused");
+    relatedEl.classList.remove("focused");
+    // focusFlag = false;
   });
 });
