@@ -17,7 +17,8 @@ body {
 }
 
 header {
-  background-color: white;
+  /* background-color: white; */
+  background-color: #fefffe;
 }
 .wrapper {
   height: 100vh;
@@ -42,7 +43,8 @@ footer {
   text-align: center;
   border-top: 2px;
   border-color: rgb(0, 11, 92);
-  background-color: rgb(183, 195, 120, 0.35);
+  /* background-color: rgb(183, 195, 120, 0.35); */
+  background-color: #d2e0bf;
   color: white;
 }
 
@@ -73,6 +75,10 @@ figcaption {
   text-align: center;
   font-weight: bold;
 }
+.examples {
+  display: flex;
+  text-align: center;
+}
 
 h1 {
   font-family: "Montserrat", sans-serif;
@@ -82,7 +88,8 @@ h1 {
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: #ff5c34;
-  background-color: white;
+  /* background-color: white; */
+  background-color: #fefffe;
   -webkit-font-smoothing: antialiased;
   padding-left: 20px;
   font-weight: bolder;
@@ -130,7 +137,9 @@ ul.nav > li {
   display: inline-block;
   font-weight: bold;
   padding: 15px 20px;
+  border-radius: 20px;
 }
+
 ul.nav > li > a:link,
 a:visited {
   color: rgb(0, 11, 92);
