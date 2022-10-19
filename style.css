@@ -52,6 +52,7 @@ a img {
   display: block;
   margin: auto;
   min-width: 256px;
+  max-width: 300px;
 }
 #self {
   width: 300px;
@@ -142,6 +143,12 @@ ul.nav > li {
 
 ul.nav > li > a:link,
 a:visited {
+  color: rgb(0, 11, 92);
+}
+ul.nav > li > a:link {
+  color: rgb(0, 11, 92);
+}
+div.two-column > figure > a {
   color: rgb(0, 11, 92);
 }
 
