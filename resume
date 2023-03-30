@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Resume - Kimberly Hager</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Resum as of 3/29/2023" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend" rel="stylesheet">
+        <style>
+            html {
+                /* background-color: bisque; */
+
+            }
+
+            ul:not(.clean) {
+                list-style-type: disc;
+            }
+
+            li {
+                padding-bottom: 10px;
+            }
+
+            h3 {
+                border-bottom: 1px solid lightgray;
+                margin-bottom: 0px;
+            }
+
+            h4 {
+                margin-bottom: 0px;
+            }
+
+            body {
+                font-family: 'Lexend', sans-serif;
+                /* padding-left: 20px; */
+                background-color: white;
+                font-size: 14pt;
+            }
+
+            .content,
+            .full-width {
+                padding-left: 17%;
+                padding-right: 17%;
+
+            }
+
+            #name {
+                font-weight: 700;
+            }
+
+            .emphasis {
+                font-style: italic;
+                padding-top: 0px;
+                padding-bottom: 0px;
+                margin-top: 0px;
+            }
+
+
+            header {
+                display: block;
+                text-align: center;
+                padding-left: 17%;
+                padding-right: 17%;
+            }
+
+            #contact {
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: space-evenly;
+                align-items: center;
+                margin-top: 1.33em;
+
+            }
+
+            img,
+            a {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            img {
+                padding-right: 10px;
+            }
+
+            .clean {
+                list-style-type: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <h1 id="name">Kimberly Hager</h1>
+            <h2 id="position">Digital Interactives Developer</h2>
+        </header>
+        <div class="content">
+            <section class="exp">
+                <h3>Experience</h3>
+                <ul class="clean">
+                    <li id="exp1">
+                        <h4>Senior Digital Interactives Developer</h4>
+                        <p class="emphasis">Great Minds, Remote / March 2020 - Present</p>
+                        <ul>
+                            <li>Led User Acceptance Testing efforts for over 200 digital lessons</li>
+                            <li>Designed and authored over 160 digital interactives using JavaScript and GeoGebra to
+                                help
+                                students
+                                visualize and explore abstract mathematical concepts</li>
+                            <li>Retrofitted and redesigned interactives to conform to Web Content Accessibility
+                                Guidelines
+                                2.1
+                                Level
+                                AA
+                            </li>
+                            <li>Counseled lesson writers on how best to integrate digital technology into print
+                                materials
+                            </li>
+                            <li>Used project management software to prioritize and communicate progress on projects</li>
+                            <li>Maintained codebase using GitHub</li>
+                            <li>Created and maintained documentation of code</li>
+                            <li>Analyzed curriculum for evidence of bias and proposed solutions</li>
+                        </ul>
+                    </li>
+                    <li id="exp2">
+                        <h4>Math and Physics Teacher</h4>
+                        <p class="emphasis">Our Lady of Good Counsel High School, Olney, MD / August 2008 – June 2020
+                        </p>
+                        <ul>
+                            <li> Developed curriculum, activities, and assessments to meet the diverse needs of 125
+                                students
+                                per
+                                year
+                            </li>
+                            <li>Created 8 Desmos-based projects per year to encourage digital literacy and creative
+                                thinking
+                            </li>
+                            <li>Identified and adapted lessons for students with learning disabilities using educational
+                                technology
+                            </li>
+                            <li>Differentiated instruction to accommodate all students’ needs</li>
+                        </ul>
+                    </li>
+                    <li id="exp3">
+                        <h4>Research Assistant</h4>
+                        <p class="emphasis">University of Maryland Baltimore County, Baltimore, MD / June 2006 – August
+                            2008
+                        </p>
+                        <ul>
+                            <li>Modeled atmospheric data pertaining to pyro-cumulonimbus clouds using Mathematica and
+                                MATLAB
+                            </li>
+                            <li>Maintained precise weather records on a Linux system</li>
+                            <li>Analyzed data pertaining to plant fluorescence after application of DCMU using Excel
+                            </li>
+                            <li>Analyzed data from remote sensing satellites</li>
+                            <li>Performed experiments on corn and pepper plants in the USDA fields</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section class="skills">
+                <h3>Skills</h3>
+                <ul class="bullets">
+                    <li>JavaScript/HTML/CSS</li>
+                    <li>Accessible design</li>
+                    <li>Problem solving</li>
+                    <li>Instructional design</li>
+                    <li>Self-directed learner</li>
+                    <li>Adaptable</li>
+                    <li>Effective communicator</li>
+                </ul>
+            </section>
+            <section class="awards">
+                <h3>Awards</h3>
+                <div id="award1">
+                    <h4>Imagine That Award</h4>
+                    <p>Great Minds<br>June 2021</p>
+                </div>
+            </section>
+            <section class="edu">
+                <h3>Education</h3>
+                <h4>Masters, Leadership in Teaching</h4>
+                <p class="emphasis">Notre Dame of Maryland University, Baltimore, MD / 2009 - 2012</p>
+                <h4>Bachelor of Arts, Physics</h4>
+                <p class="emphasis">Notre Dame of Maryland University, Baltimore, MD / 2003 - 2007</p>
+            </section>
+        </div>
+        <section class="full-width">
+            <h3>Contact Information</h3>
+            <div id="contact">
+                <a id="email" href="mailto:hager.kimberly.a@gmail.com">
+                    <img alt="email icon" src="email-8-svgrepo-com.svg" width="45px"
+                         height="45px">hager.kimberly.a@gmail.com
+                </a>
+                <a id="phone" href="tel:4433408607" target="_blank">
+                    <img alt="phone icon" src="phone-svgrepo-com.svg" width="45px" height="45px">(443)340-8607</a>
+                <a id="linkedin" href="https://www.linkedin.com/in/kimberly-hager-97448317b/" target="_blank">
+                    <img alt="linkedin icon" src="linkedin-outline-svgrepo-com.svg" width="45px" height="45px">LinkedIn
+                    Profile</a>
+                <a href="https://www.google.com/maps/place/11583+Liberty+Oak+Dr,+Frederick,+MD+21701/@39.4916085,-77.2691719,17z/data=!3m1!4b1!4m6!3m5!1s0x89c9cc36fae5d6bd:0xfc526d6b0894f5d3!8m2!3d39.4916085!4d-77.2669832!16s%2Fg%2F11c4ljcjps"
+                   id="address" target="_blank">
+                    <img alt="address icon" src="address-location-map-svgrepo-com.svg" width="45px" height="45px">11583
+                    Liberty Oak Drive, Frederick, MD 21701</a>
+            </div>
+        </section>
+    </body>
+
+</html>
