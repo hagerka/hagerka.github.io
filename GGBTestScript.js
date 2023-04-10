@@ -1,4 +1,2 @@
-function ggbOnInit(name, ggbObject) {
-  console.log("fetched");
-  ggbObject.evalCommand("A=(5,3)");
-}
+console.log("fetched");
+ggbObject.evalCommand("A=(5,3)");
