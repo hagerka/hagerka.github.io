@@ -1,1 +1,3 @@
-ggbObject.evalCommand("A=(5,3)");
+function doStuff() {
+  ggbObject.evalCommand("A=(5,3)");
+}
