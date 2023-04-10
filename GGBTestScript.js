@@ -1,3 +1,3 @@
-ggbApplet = ggbObject;
+ggbObject = ggbApplet;
 console.log("fetched");
 ggbObject.evalCommand("A=(5,3)");
