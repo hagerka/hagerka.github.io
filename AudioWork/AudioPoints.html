@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Panner/Frequency Explorations</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" />
+    <style>
+      #mainContent {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto;
+        align-items: top;
+        justify-content: center;
+      }
+
+      #container2 {
+        padding-left: 20px;
+        text-align: center;
+      }
+
+      .axis {
+        user-select: none;
+      }
+
+      form {
+        text-align: center;
+      }
+
+      #toolbar {
+        width: 600px;
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        grid-template-rows: auto;
+      }
+
+      svg {
+        margin-top: 0;
+        border: 3px solid;
+      }
+
+      body {
+        font-size: 1.25em;
+      }
+
+      button.selected-tool {
+        border: 3px solid black;
+      }
+
+      .tool {
+        border: 3px solid white;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(255, 255, 255, 0.4);
+      }
+
+      .modalContent {
+        background-color: rgb(255, 255, 255);
+        color: black;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 60%;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      #grid,
+      #gridLabel {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main id="mainContent">
+      <div class="modal" id="setupModal">
+        <div class="modalContent">
+          <span class="close">&times;</span>
+          <form>
+            <h2>Set up grid:</h2>
+            <label for="xMin">xMin:<input id="xMin" min="-30" max="-1" required class="gridSetup"
+                     type="number" /></label>
+            <label for="xMax">xMax:<input id="xMax" min="0" max="30" required class="gridSetup" type="number" /></label>
+            <label for="yMin">yMin:<input id="yMin" min="-30" max="-1" required class="gridSetup"
+                     type="number" /></label>
+            <label for="yMax">yMax:<input id="yMax" min="0" max="30" required class="gridSetup" type="number" /></label>
+          </form>
+        </div>
+      </div>
+      <div id="container1">
+        <div id="toolbar"></div>
+        <h1>Panner/Frequency Explorations</h1>
+        <svg id="coordPlane"></svg>
+        <p>
+          Drag the point to hear the sound. Drag left and right to change the
+          speaker out of which you hear the sound. Drag the point up and down to
+          change the frequency of the sound.
+        </p>
+        <label for="grid" id="gridLabel"><input id="grid" type="checkbox" name="grid" class="gridSetup" checked />Show
+          grid</label>
+      </div>
+    </main>
+    <script>
+      /* eslint-disable no-unused-vars */
+      /* eslint-disable no-undef */
+      // selectors
+      const inputXMin = document.querySelector("#xMin");
+      const inputXMax = document.querySelector("#xMax");
+      const inputYMin = document.querySelector("#yMin");
+      const inputYMax = document.querySelector("#yMax");
+
+      const xArray = [];
+      const yArray = [];
+
+      // link d3 to the svg in the HTML
+      const svg = d3.select("#coordPlane");
+
+      // set grid boundaries in modala
+      inputXMin.value = -5;
+      inputXMax.value = 5;
+      inputYMin.value = -5;
+      inputYMax.value = 5;
+
+      // function to create cartesian coordinate system
+      function createGrid({
+        svg,
+        width = 500,
+        height = 500,
+        xMin = -5,
+        xMax = 5,
+        yMin = -5,
+        yMax = 5
+      }) {
+        svg.attr("width", width).attr("height", height);
+        const domain = xMax - xMin;
+        const range = yMax - yMin;
+        const pixelX = width / domain;
+        const pixelY = height / range;
+        const marginLeft = (xMax / domain) * width;
+        const marginBottom = height - (yMax / range) * height;
+
+        const x = d3.scaleLinear([xMin, xMax], [0, width]);
+        const y = d3.scaleLinear([yMin, yMax], [height, 0]);
+
+        const gx = svg
+          .append("g")
+          .attr("transform", `translate(0,${height - marginBottom})`)
+          .attr("class", "axis")
+          .style("font", "1em sans-serif")
+          .style("stroke-width", "3px")
+          .call(d3.axisBottom(x));
+
+        const gy = svg
+          .append("g")
+          .attr("transform", `translate(${width - marginLeft},0)`)
+          .attr("class", "axis")
+          .style("font", "1em sans-serif")
+          .style("stroke-width", "3px")
+          .call(d3.axisLeft(y));
+
+        // @ts-ignore
+        if (grid.checked) {
+          for (let i = 0, L = range + 1; i <= L; i++) {
+            const gridx = svg
+              .append("g")
+              .attr("class", "grid-lines")
+              .attr("transform", `translate(0,${height - i * pixelY})`)
+              .call(d3.axisBottom(x).ticks(""));
+          }
+          for (let i = 0, L = domain + 1; i <= L; i++) {
+            const gridy = svg
+              .append("g")
+              .attr("class", "grid-lines")
+              .attr("transform", `translate(${i * pixelX},0)`)
+              .call(d3.axisLeft(y).ticks(""));
+          }
+        }
+      }
+
+      // function to create points
+      function createPoint({
+        svg,
+        xCoord,
+        yCoord,
+        pointSize,
+        color,
+        width = 600,
+        height = 500,
+        xMin = -5,
+        xMax = 5,
+        yMin = -5,
+        yMax = 5
+      }) {
+        const domain = xMax - xMin;
+        const range = yMax - yMin;
+        const pixelX = width / domain;
+        const pixelY = height / range;
+        const cx = xCoord * pixelX + width - xMax * pixelX;
+        const cy = -yCoord * pixelY + yMax * pixelY;
+        xArray.push(cx);
+        yArray.push(cy);
+        const rangeNum = svg.selectAll(".point").size() + 1;
+        const circles = d3.range(rangeNum).map(function (i) {
+          return {
+            x: xArray[i],
+            y: yArray[i],
+            id: "circle".concat(i + 1)
+          };
+        });
+
+        svg
+          .selectAll(".point")
+          .data(circles)
+          .enter()
+          .append("circle")
+          .attr("class", "point")
+          .attr("cx", function (d) {
+            return d.x;
+          })
+          .attr("cy", function (d) {
+            return d.y;
+          })
+          .attr("r", pointSize)
+          .style("fill", color)
+          .on("mouseover", function (d) {
+            d3.select(this).style("cursor", "move");
+          })
+          .on("mouseout", function (d) { })
+          .call(
+            d3
+              .drag()
+              .on("start", dragstarted)
+              .on("drag", dragged)
+              .on("end", dragended)
+          );
+
+        function dragstarted(d) {
+          d3.select(this).raise().classed("active", true);
+          ctx.resume();
+        }
+
+        function dragged(event, d) {
+          d3.select(this)
+            .attr("cx", (d.x = event.x))
+            .attr("cy", (d.y = event.y));
+          osc.frequency.setValueAtTime(
+            330 - (2 * 50 * event.y) / height,
+            ctx.currentTime
+          );
+          panNode.pan.cancelScheduledValues(ctx.currentTime);
+          panNode.pan.setValueAtTime(
+            (2 * event.x) / width - 1,
+            ctx.currentTime
+          );
+        }
+
+        function dragended(event, d) {
+          d3.select(this)
+            .attr("cx", (d.x = event.x))
+            .attr("cy", (d.y = event.y));
+          d3.select(this).classed("active", false);
+          svg.selectAll(".point").raise();
+          ctx.suspend();
+        }
+      }
+
+      createGrid({
+        svg,
+        width: 600,
+        height: 500,
+        xMin: inputXMin.value,
+        xMax: inputXMax.value,
+        yMin: inputYMin.value,
+        yMax: inputYMax.value
+      });
+
+      createPoint({
+        svg: svg,
+        xCoord: 0,
+        yCoord: 0,
+        pointSize: 10,
+        color: "blue"
+      });
+
+      grid.addEventListener("change", () => {
+        d3.selectAll("g.grid-lines").remove();
+        d3.selectAll("g.axis").remove();
+        createGrid({
+          svg,
+          width: 600,
+          height: 500,
+          xMin: inputXMin.value,
+          xMax: inputXMax.value,
+          yMin: inputYMin.value,
+          yMax: inputYMax.value
+        });
+      });
+
+      const gridInputs = document.querySelectorAll(".gridSetup");
+
+      gridInputs.forEach(input => {
+        input.addEventListener("change", event => {
+          const isValid = event.target.reportValidity();
+          event.target.setAttribute("aria-invalid", !isValid);
+
+          if (isValid) {
+            svg.selectAll("*").remove();
+            createGrid({
+              svg,
+              width: 600,
+              height: 500,
+              xMin: inputXMin.value,
+              xMax: inputXMax.value,
+              yMin: inputYMin.value,
+              yMax: inputYMax.value
+            });
+          } else {
+            d3.selectAll("g.grid-lines").remove();
+            d3.selectAll("g.axis").remove();
+          }
+        });
+      });
+
+      const ctx = new AudioContext();
+      // Create the oscillator
+      const osc = ctx.createOscillator();
+      // Define type of wave
+      osc.type = "sine";
+      // We create a gain intermediary
+      const volume = ctx.createGain();
+      // We connect the oscillator with the gain knob
+      osc.connect(volume);
+      // Then connect the volume to the context destination
+
+      // We can set & modify the gain knob
+      osc.frequency.value = 330 - (2 * 50 * 250) / 500;
+      volume.gain.value = 0.2;
+      osc.start();
+      ctx.suspend();
+
+      // Create a MediaElementAudioSourceNode
+      // Feed the HTMLMediaElement into it
+
+      // Create a stereo panner
+      var panNode = ctx.createStereoPanner();
+      panNode.pan.value = 0;
+      volume.connect(panNode);
+      panNode.connect(ctx.destination);
+    </script>
+  </body>
+
+</html>

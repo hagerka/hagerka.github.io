@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Audio Context Playground</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" />
+    <style>body {
+        font-size: 1.25em
+      }
+      
+      #advanced {
+        flex-grow: 2;
+      }
+      
+      fieldset {
+        display: flex;
+        flex-direction: column;
+      }
+      </style>
+  </head>
+
+  <body>
+  <h1>
+  Audio Context Playground
+  </h1>
+    <main>
+      <section id="inputs">
+        <fieldset id="basics">
+          <legend>Basic Controls: Volume, Pitch, Balance</legend>
+          <label for="gain" id="gain-label"> Gain</label>
+          <input type="range" id="gain" min="0" max="1" value="0.5" step="0.05" />
+          <label for="frequency" id="frequency-label">Oscillator Frequency</label>
+          <input type="range" id="frequency" min="220" max="440" value="330" />
+          <label for="pan" id="pan-label"> Pan</label>
+          <input type="range" id="pan" min="-1" max="1" value="0" step="0.05" />
+        </fieldset>
+        <fieldset id="advanced">
+          <legend>Advanced Controls</legend>
+          <label for="threshold" id="threshold-label"> Threshold</label>
+          <input type="range" id="threshold" min="-100" max="0" value="-24" />
+          <label for="ratio" id="ratio-label"> Ratio</label>
+          <input type="range" id="ratio" min="1" max="20" value="12" />
+          <label for="knee" id="knee-label"> Knee</label>
+          <input type="range" id="knee" min="0" max="40" value="30" />
+          <label for="attack" id="attack-label"> Attack</label>
+          <input type="range" id="attack" min="0" max="1" value="0.003" step="0.001" />
+          <label for=" release" id="release-label"> Release</label>
+          <input type="range" id="release" min="0" max="1" value="0.25" step="0.001" />
+        </fieldset>
+
+      </section>
+      <button id="play">Play</button>
+      <button id="stop">Stop</button>
+    </main>
+    <script>
+        function makeNewListeners(id, type, connector) {
+  const selector = document.querySelector("#".concat(id));
+  const label = document.querySelector("#".concat(id, "-label"));
+  let tag = id.concat(" = ", selector.value);
+  label.innerText = tag;
+  selector.addEventListener(type, () => {
+    tag = id.concat(" = ", selector.value);
+    label.innerText = tag;
+    connector.cancelScheduledValues(ctx.currentTime);
+    if (id === "frequency" || id === "ratio") {
+      connector.exponentialRampToValueAtTime(selector.value, ctx.currentTime);
+
+    } else {
+      connector.setTargetAtTime(selector.value, ctx.currentTime, 0.015);
+
+    }
+  })
+}
+
+const play = document.querySelector("#play");
+const stop = document.querySelector("#stop");
+const ctx = new AudioContext();
+const osc = ctx.createOscillator();
+const volume = ctx.createGain();
+const panNode = ctx.createStereoPanner();
+const compressor = ctx.createDynamicsCompressor();
+
+
+
+
+makeNewListeners("gain", "change", volume.gain);
+makeNewListeners("frequency", "change", osc.frequency);
+makeNewListeners("pan", "change", panNode.pan);
+makeNewListeners("threshold", "change", compressor.threshold);
+makeNewListeners("ratio", "change", compressor.ratio);
+makeNewListeners("knee", "change", compressor.knee);
+makeNewListeners("attack", "change", compressor.attack);
+makeNewListeners("release", "change", compressor.release);
+
+compressor.threshold.setValueAtTime(threshold.value, ctx.currentTime);
+compressor.knee.setValueAtTime(knee.value, ctx.currentTime);
+compressor.ratio.setValueAtTime(ratio.value, ctx.currentTime);
+compressor.attack.setValueAtTime(attack.value, ctx.currentTime);
+compressor.release.setValueAtTime(release.value, ctx.currentTime);
+
+
+osc.frequency.value = frequency.value;
+osc.connect(compressor);
+compressor.connect(panNode);
+panNode.connect(volume);
+volume.connect(ctx.destination);
+osc.start();
+ctx.suspend();
+
+play.addEventListener("click", () => {
+  ctx.resume();
+})
+stop.addEventListener("click", () => {
+  ctx.suspend();
+})
+
+// TODO: add in compression button with optional on/off
+// TODO: add in source option for oscillator vs file playback
+    </script>
+  </body>
+
+</html>
