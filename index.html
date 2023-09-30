@@ -2,21 +2,31 @@
 <html lang="en">
 
     <head>
-        <title>K Hager - Projects</title>
+        <title>K Hager - Portfolio</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Current Projects" />
         <link rel="stylesheet" href="style.css" />
-        <link rel="icon" href="logo-eureka-math.svg" />
-        <script async src="/script.js"></script>
+        <script async src="script.js"></script>
+        <link rel="apple-touch-icon" sizes="180x180" href="Assets/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="Assets/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="Assets/favicon-16x16.png" />
+        <link rel="manifest" href="Assets/site.webmanifest" />
     </head>
 
     <body>
+        <a href="#main" class="main-content-link">Skip to Main Content</a>
         <div class="wrapper">
             <header>
-                <h1>K Hager - Projects</h1>
+                <h1>K Hager - Portfolio</h1>
                 <h2>Senior Digital Interactives Developer</h2>
             </header>
-            <main style="margin:auto">
+            <nav id="main-nav">
+                <a href="/D3.html">D3 Experiments</a>
+                <a href="AudioContext.html">AudioContext Experiments</a>
+                <a href="React.html">React Experiments</a>
+                <a href="APICalls.html">API Call Experiments</a>
+            </nav>
+            <main id="main">
                 <h3>List of Current Works in Progress</h3>
                 <ul>
                     <li>
@@ -33,10 +43,15 @@
                     </li>
                 </ul>
             </main>
-            <footer>
-                <p>
-                    <a href="resume.html" style="color: black">Click to View My Resume</a>
-                </p>
+            <footer id="footer-container">
+                <figure id="webspeech">
+                    <img id="speaker-icon" class="icon muted" alt="Speaker Icon" src="Assets/Speaker_Icon.svg" />
+                    <img id="mute-icon" class="icon" alt="Mute Icon" src="Assets/Mute_Icon.svg" />
+                    <caption>
+                        Read the page to me
+                    </caption>
+                </figure>
+                <a id="resume-link" href="resume.html">Click to View My Resume</a>
             </footer>
         </div>
     </body>
