@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/reactdom@18/umd/react-dom.development.js"></script>
+        <script src="../lib/data-exploration/tuva-data-tools.js"></script>
+        <link rel="stylesheet" href="../lib/data-exploration/tuva-data-tools.css" />
+
+        <script type="text/javascript">
+            var tuvaDataToolsProperties = {
+                columnIds: data.columnIds,
+                columnNames: data.columnNames,
+                rowData: data.rowData,
+                metaData: data.metaData,
+                plotState: data.plotState,
+                language: "en-US",
+                onPlotSave: function (plotData) {
+                    alert("Perform save; check the value returned to test the output!");
+                    console.log("Save Plot Data:", JSON.stringify(plotData.plotState));
+                },
+                onMetaDataSave: function (metaData) {
+                    console.log("Save Meta Data:", metaData);
+                }
+            };
+
+            jQuery.ajax({
+                url: "data.json",
+                success: function (data) {
+                    ReactDOM.render(
+                        React.createElement(TuvaDataTools, tuvaDataToolsProperties),
+                        document.getElementById("plotElement")
+                    );
+                }
+            });
+        </script>
+    </head>
+
+    <body>
+        <div id="root"></div>
+    </body>
+
+</html>
