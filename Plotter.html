@@ -44,7 +44,6 @@
 
             button.selected-tool {
                 border: 3px solid black;
-
             }
 
             .tool {
@@ -95,39 +94,33 @@
                     <span class="close">&times;</span>
                     <form>
                         <h2>Set up grid:</h2>
-                        <label for="xMin">xMin:<input id="xMin" min=-30 max=-1 required class="gridSetup"
+                        <label for="xMin">xMin:<input id="xMin" min="-30" max="-1" required class="gridSetup"
                                    type="number" /></label>
-                        <label for="xMax">xMax:<input id="xMax" min=0 max=30 required class="gridSetup"
+                        <label for="xMax">xMax:<input id="xMax" min="0" max="30" required class="gridSetup"
                                    type="number" /></label>
-                        <label for="yMin">yMin:<input id="yMin" min=-30 max=-1 required class="gridSetup"
+                        <label for="yMin">yMin:<input id="yMin" min="-30" max="-1" required class="gridSetup"
                                    type="number" /></label>
-                        <label for="yMax">yMax:<input id="yMax" min=0 max=30 required class="gridSetup"
+                        <label for="yMax">yMax:<input id="yMax" min="0" max="30" required class="gridSetup"
                                    type="number" /></label>
                     </form>
                 </div>
-
             </div>
             <div id="container1">
                 <div id="toolbar">
-
                     <button id="point-tool" class="tool">Create Point</button>
                     <button id="line-tool" class="tool">Create Line</button>
                     <button id="circle-tool" class="tool">Create Circle</button>
                     <button id="delete-tool" class="tool">Reset Graph</button>
                 </div>
                 <svg id="coordPlane"></svg>
-                <button id="button2">
-                    Change grid
-                </button>
+                <button id="button2">Change grid</button>
                 <label for="grid"><input id="grid" type="checkbox" name="grid" class="gridSetup" checked />Show
                     grid</label>
-
             </div>
         </main>
         <script>
-            /* eslint-disable no-unused-vars */
-            /* eslint-disable id-length */
-            /* eslint-disable no-undef */
+            document.addEventListener("contextmenu", event => event.preventDefault());
+
             // selectors
             const inputXMin = document.querySelector("#xMin");
             const inputXMax = document.querySelector("#xMax");
@@ -141,9 +134,12 @@
 
             const xArray = [];
             const yArray = [];
+            const lineArray = [];
+
             let pointFlag = false;
             let lineFlag = false;
             let circleFlag = false;
+            let count = 0;
 
             function manageTools(caller = deleteTool, callerFlag = "") {
                 switch (caller) {
@@ -182,13 +178,21 @@
                 manageTools(pointTool, pointFlag);
                 if (pointFlag) {
                     svg.on("mousedown", function (event) {
-                        createPoint({
-                            svg: svg,
-                            xCoord: event.offsetX,
-                            yCoord: event.offsetY,
-                            pointSize: 10,
-                            color: "blue"
-                        });
+                        if (event.which === 1) {
+                            createPoint({
+                                svg: svg,
+                                xCoord: event.offsetX,
+                                yCoord: event.offsetY,
+                                pointSize: 10,
+                                color: "blue",
+                                count
+                            });
+                            count++;
+                        } else {
+                            if (event.target) {
+                                svg.select(`#${event.target.id}`).remove();
+                            }
+                        }
                     });
                     pointTool.classList.add("selected-tool");
                 } else {
@@ -199,36 +203,46 @@
 
             // make a line
             lineTool.addEventListener("click", () => {
-                let count = 0;
-                let xCoords = [];
-                let yCoords = [];
+                let latestCount = 0;
+                let firstPoint = "";
+                let secondPoint = "";
                 manageTools(lineTool, lineFlag);
                 if (lineFlag) {
                     svg.on("mousedown", function (event) {
-                        if (count < 2) {
+                        if (latestCount < 2) {
                             createPoint({
                                 svg: svg,
                                 xCoord: event.offsetX,
                                 yCoord: event.offsetY,
                                 pointSize: 10,
-                                color: "blue"
+                                color: "blue",
+                                count
                             });
-                            xCoords.push(event.offsetX);
-                            yCoords.push(event.offsetY);
+                            if (latestCount === 0) {
+                                firstPoint = "point" + count;
+                            } else if (latestCount === 1) {
+                                secondPoint = "point" + count;
+                            }
+                            latestCount++;
                             count++;
                         }
-                        if (count === 2) {
+                        if (latestCount === 2) {
                             createLine({
                                 svg: svg,
                                 color: "red",
-                                xCoords: xCoords,
-                                yCoords: yCoords,
-                                strokeWidth: 10
+                                firstPoint: firstPoint,
+                                secondPoint: secondPoint,
+                                strokeWidth: 10,
+                                id: "line".concat(count - 2, count - 1)
                             });
-
-                            count = 0;
-                            xCoords.length = 0;
-                            yCoords.length = 0;
+                            lineArray.push([
+                                "line".concat(count - 2, count - 1),
+                                count - 2,
+                                count - 1
+                            ]);
+                            latestCount = 0;
+                            firstPoint = "";
+                            secondPoint = "";
                         }
                     });
                     lineTool.classList.add("selected-tool");
@@ -246,21 +260,20 @@
                 let yCoords = [];
                 if (circleFlag) {
                     svg.on("mousedown", function (event) {
-                        console.log(count);
                         if (count < 2) {
                             createPoint({
                                 svg: svg,
                                 xCoord: event.offsetX,
                                 yCoord: event.offsetY,
                                 pointSize: 10,
-                                color: "blue"
+                                color: "blue",
+                                count
                             });
                             xCoords.push(event.offsetX);
                             yCoords.push(event.offsetY);
                             count++;
                         }
                         if (count === 2) {
-                            console.log(event.offsetX);
                             createCircle({
                                 svg: svg,
                                 color: "red",
@@ -289,6 +302,8 @@
                 svg.on("mousedown", null);
                 xArray.length = 0;
                 yArray.length = 0;
+                count = 0;
+                lineArray.length = 0;
             });
 
             // set grid boundaries in modal
@@ -334,7 +349,6 @@
                     .style("stroke-width", "3px")
                     .call(d3.axisLeft(y));
 
-                // @ts-ignore
                 if (grid.checked) {
                     for (let i = 0, L = range + 1; i <= L; i++) {
                         const gridx = svg
@@ -360,6 +374,7 @@
                 yCoord,
                 pointSize,
                 color,
+                count,
                 width = 600,
                 height = 500,
                 xMin = -2,
@@ -375,7 +390,7 @@
                 xArray.push(xCoord);
                 yArray.push(yCoord);
                 /*   xArray.push(Math.round((10 * (xCoord - width + xMax * pixelX)) / pixelX) / 10);
-                  yArray.push(Math.round((10 * (-yCoord + yMax * pixelY)) / pixelY) / 10); */
+                                                                  yArray.push(Math.round((10 * (-yCoord + yMax * pixelY)) / pixelY) / 10); */
                 const rangeNum = svg.selectAll(".point").size() + 1;
                 console.log("rangeNum", rangeNum);
                 const circles = d3.range(rangeNum).map(function (i) {
@@ -393,6 +408,7 @@
                     .enter()
                     .append("circle")
                     .attr("class", "point")
+                    .attr("id", "point" + count)
                     .attr("cx", function (d) {
                         return d.x;
                     })
@@ -402,7 +418,7 @@
                     .attr("r", pointSize)
                     .style("fill", color)
                     .on("mouseover", function (d) {
-                        d3.select(this).style("cursor", "move");
+                        d3.select(this).style("cursor", "pointer");
                     })
                     .on("mouseout", function (d) { })
                     .call(
@@ -421,6 +437,20 @@
                     d3.select(this)
                         .attr("cx", (d.x = event.x))
                         .attr("cy", (d.y = event.y));
+                    const foundLine = lineArray.filter(interiorArray =>
+                        interiorArray.includes(Number(this.id.replace("point", "")))
+                    );
+                    if (foundLine.length > 0) {
+                        svg.selectAll(`#${foundLine[0][0]}`).remove();
+                        createLine({
+                            svg: svg,
+                            color: "red",
+                            firstPoint: "point".concat(foundLine[0][1]),
+                            secondPoint: "point".concat(foundLine[0][2]),
+                            strokeWidth: 10,
+                            id: "line".concat(this.id.replace("point", ""))
+                        });
+                    }
                 }
             }
 
@@ -436,8 +466,8 @@
             function createLine({
                 svg,
                 color,
-                xCoords,
-                yCoords,
+                firstPoint,
+                secondPoint,
                 width = 600,
                 height = 500,
                 xMin = -2,
@@ -450,27 +480,48 @@
                 const range = yMax - yMin;
                 const pixelX = width / domain;
                 const pixelY = height / range;
-                const startPointX = 1;
-                const startPointY = 2;
-                const endPointX = 3;
-                const endPointY = 4;
-                const startPixelX = startPointX * pixelX + width - xMax * pixelX;
-                const startPixelY = -startPointY * pixelY + yMax * pixelY;
-                const endPixelX = endPointX * pixelX + width - xMax * pixelX;
-                const endPixelY = -endPointY * pixelY + yMax * pixelY;
 
-                const calcSlope = (yCoords[1] - yCoords[0]) / (xCoords[1] - xCoords[0]);
-                const calcSPY = yCoords[0] - calcSlope * xCoords[0];
-                const calcEPY = yCoords[0] + calcSlope * (width - xCoords[0]);
+                const x1 = Number(
+                    document.querySelector(`#${firstPoint}`).getAttribute("cx")
+                );
+                const y1 = Number(
+                    document.querySelector(`#${firstPoint}`).getAttribute("cy")
+                );
+                const x2 = Number(
+                    document.querySelector(`#${secondPoint}`).getAttribute("cx")
+                );
+                const y2 = Number(
+                    document.querySelector(`#${secondPoint}`).getAttribute("cy")
+                );
+                const calcSlope = (y2 - y1) / (x2 - x1);
+                console.log(calcSlope);
+                const calcSPX =
+                    x2 === x1 ? x1 : calcSlope === 0 ? 0 : x1 - (1 / calcSlope) * y1;
+                const calcSPY = x2 === x1 ? 0 : calcSlope === 0 ? y1 : 0;
+                const calcEPX =
+                    x2 === x1
+                        ? x1
+                        : calcSlope === 0
+                            ? width
+                            : x1 + (1 / calcSlope) * (height - y1);
+                const calcEPY = x2 === x1 ? height : calcSlope === 0 ? y1 : height;
+                console.log(calcSPX, calcSPY, calcEPX, calcEPY);
 
                 svg
                     .append("line")
                     .style("stroke", `${color}`)
                     .style("stroke-width", `${strokeWidth}`)
                     .attr("class", "line")
-                    .attr("x1", `${0}`)
+                    .attr(
+                        "id",
+                        "line".concat(
+                            firstPoint.replace("point", ""),
+                            secondPoint.replace("point", "")
+                        )
+                    )
+                    .attr("x1", `${calcSPX}`)
                     .attr("y1", `${calcSPY}`)
-                    .attr("x2", `${width}`)
+                    .attr("x2", `${calcEPX}`)
                     .attr("y2", `${calcEPY}`)
                     .lower();
             }
@@ -485,7 +536,8 @@
             }) {
                 console.log(xCoords, yCoords);
                 const radius = Math.sqrt(
-                    Math.pow(xCoords[1] - xCoords[0], 2) + Math.pow(yCoords[1] - yCoords[0], 2)
+                    Math.pow(xCoords[1] - xCoords[0], 2) +
+                    Math.pow(yCoords[1] - yCoords[0], 2)
                 );
                 console.log("radius", radius);
                 svg
@@ -571,7 +623,6 @@
                     modal.style.display = "none";
                 }
             };
-
         </script>
     </body>
 
