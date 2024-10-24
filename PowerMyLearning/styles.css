@@ -141,7 +141,7 @@ textarea::-webkit-input-placeholder {
 
 img {
   height: inherit;
-  max-width: 100%;
+  max-width: 300px;
   vertical-align: middle;
   border: 0;
 }
