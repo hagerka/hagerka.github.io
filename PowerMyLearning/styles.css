@@ -139,8 +139,13 @@ textarea::-webkit-input-placeholder {
   margin-top: 4px;
 }
 
+img.demo {
+  max-height: 300px;
+  max-width: 50%;
+  vertical-align: middle;
+  border: 0;
+}
 img {
-  height: inherit;
   max-width: 300px;
   vertical-align: middle;
   border: 0;
