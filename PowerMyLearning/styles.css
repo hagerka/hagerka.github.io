@@ -129,6 +129,22 @@ textarea::-webkit-input-placeholder {
   margin-left: -37px;
   margin-top: -37px;
 }
+.blue-section {
+  background: #052060;
+  color: #fff;
+  box-shadow: 0 4px 4px #00000040;
+  border-radius: 15px;
+  margin-top: 20px;
+  padding: 15px 23px;
+}
+.white-section {
+  background: #ffffff;
+  color: #1b232c;
+  box-shadow: 0 4px 4px #00000040;
+  border-radius: 15px;
+  margin-top: 16px;
+  padding: 15px 23px;
+}
 
 .error-message {
   background: url(/connect/assets/content/images/cross-icon.png) no-repeat left
