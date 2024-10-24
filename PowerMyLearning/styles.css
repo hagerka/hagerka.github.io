@@ -139,14 +139,13 @@ textarea::-webkit-input-placeholder {
   margin-top: 4px;
 }
 
-img.demo {
-  max-height: 300px;
-  max-width: 50%;
+img.logo {
+  max-width: 300px;
   vertical-align: middle;
   border: 0;
 }
-img {
-  max-width: 300px;
+img.demo {
+  max-height: 150px;
   vertical-align: middle;
   border: 0;
 }
