@@ -140,12 +140,12 @@ textarea::-webkit-input-placeholder {
 }
 
 img.logo {
-  max-width: 300px;
   vertical-align: middle;
   border: 0;
 }
 img.demo {
   max-height: 150px;
+  width: auto;
   vertical-align: middle;
   border: 0;
 }
