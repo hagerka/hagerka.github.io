@@ -1,0 +1,23 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.stats {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+svg:focus {
+  outline: none;
+}
+
+div#tooltip {
+  background-color: white;
+  border: black solid 3px;
+  color: black;
+  padding: 5px;
+}
