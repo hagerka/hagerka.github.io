@@ -15,14 +15,8 @@ const data = d3.map();
 let stateCount = 0;
 // Load external data and boot
 d3.queue()
-  .defer(
-    d3.json,
-    "https://raw.githubusercontent.com/hagerka/hagerka.github.io/main/D3Work/NationalParkMap/US_State_Data.json"
-  )
-  .defer(
-    d3.csv,
-    "https://raw.githubusercontent.com/hagerka/hagerka.github.io/main/D3Work/NationalParkMap/US_National_Park_Data.csv"
-  )
+  .defer(d3.json, "US_State_Data.json")
+  .defer(d3.csv, "US_National_Park_Data.csv")
   .await(ready);
 
 function ready(error, topo, parkData) {
