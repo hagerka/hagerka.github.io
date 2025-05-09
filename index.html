@@ -15,17 +15,20 @@
 
   <body>
     <a href="#main" class="main-content-link">Skip to Main Content</a>
+    <dialog id="modal">
+      <div id="modal-wrapper">
+        <p>
+          Make sure your iPhone is not in silent mode to hear the audio-based
+          interactives.
+        </p>
+        <button id="close" autofocus>Close</button>
+      </div>
+    </dialog>
     <div class="wrapper">
       <header>
         <h1>Kimberly Hager</h1>
         <h2>Senior Digital Interactives Developer</h2>
       </header>
-      <!-- <nav id="main-nav">
-                <a href="/D3.html">D3 Experiments</a>
-                <a href="AudioContext.html">AudioContext Experiments</a>
-                <a href="React.html">React Experiments</a>
-                <a href="APICalls.html">API Call Experiments</a>
-            </nav> -->
       <main id="main">
         <h3>List of Works in Progress</h3>
         <ul id="gridded-list">
@@ -36,7 +39,7 @@
             <a href="AudioWork/AudioPoints.html">D3-Web Audio Exploration</a>
           </li>
           <li>
-            <a href="D3Work/Plotter.html">Geometry Tool for Plotting Points, Lines, and Circles</a>
+            <a href="D3Work/Plotter/Plotter.html">Geometry Tool for Plotting Points, Lines, and Circles</a>
           </li>
           <li>
             <a href="D3Work/NationalParkMap/index.html">Selectable Map of the USA with National Parks</a>
@@ -54,13 +57,15 @@
         </ul>
       </main>
       <footer id="footer-container">
-        <figure id="webspeech">
-          <img id="speaker-icon" class="icon muted" alt="Speaker Icon" src="Assets/Speaker_Icon.svg" />
-          <img id="mute-icon" class="icon" alt="Mute Icon" src="Assets/Mute_Icon.svg" />
-          <caption>
-            Read the page to me
-          </caption>
-        </figure>
+        <button id="webspeech">
+          <figure id="read-figure">
+            <img id="speaker-icon" class="icon muted" alt="Speaker Icon" src="Assets/Speaker_Icon.svg" />
+            <img id="mute-icon" class="icon" alt="Mute Icon" src="Assets/Mute_Icon.svg" />
+            <caption>
+              Read the page to me
+            </caption>
+          </figure>
+        </button>
         <a id="resume-link" href="resume.html">Click to View My Resume</a>
       </footer>
     </div>
