@@ -1,29 +1,59 @@
-const speakerIcon = document.querySelector("#speaker-icon");
-const muteIcon = document.querySelector("#mute-icon");
-const speechSession = window.speechSynthesis;
+document.addEventListener("DOMContentLoaded", function () {
+  const speakerIcon = document.getElementById("speaker-icon");
+  const muteIcon = document.getElementById("mute-icon");
+  const webspeechContainer = document.getElementById("webspeech");
+  let speaking = false;
+  let speechSynthesis = window.speechSynthesis;
+  let utterance;
 
-let flag = false;
-speakerIcon.addEventListener("click", () => {
-  flag = false;
-  speakerIcon.classList.add("muted");
-  muteIcon.classList.remove("unmuted");
-});
+  function toggleSpeech() {
+    if (!speaking) {
+      speaking = true;
+      speakerIcon.classList.remove("muted");
+      muteIcon.classList.add("muted");
 
-muteIcon.addEventListener("click", () => {
-  speechSession.cancel();
-  flag = true;
-  let utterance = new SpeechSynthesisUtterance("Speech turned on");
-  speechSynthesis.speak(utterance);
-  speakerIcon.classList.remove("muted");
-  muteIcon.classList.add("unmuted");
-});
+      const textToRead = document.querySelector("main").textContent;
 
-document.body.addEventListener("mouseover", evt => {
-  speechSession.cancel();
-  let lastUtterance = "";
-  let utterance = new SpeechSynthesisUtterance(evt.target.innerText);
-  if (utterance !== lastUtterance && flag) {
-    speechSynthesis.speak(utterance);
-    utterance = lastUtterance;
+      utterance = new SpeechSynthesisUtterance(textToRead);
+      utterance.onend = function () {
+        resetSpeech();
+      };
+
+      speechSynthesis.speak(utterance);
+    } else {
+      resetSpeech();
+    }
   }
+
+  function resetSpeech() {
+    speaking = false;
+    speechSynthesis.cancel();
+    speakerIcon.classList.add("muted");
+    muteIcon.classList.remove("muted");
+  }
+
+  webspeechContainer.addEventListener("click", toggleSpeech);
+
+  const projectItems = document.querySelectorAll("#gridded-list li");
+  projectItems.forEach((item) => {
+    item.addEventListener("mouseenter", function () {
+      this.style.transform = "translateY(-5px)";
+    });
+
+    item.addEventListener("mouseleave", function () {
+      this.style.transform = "translateY(0)";
+    });
+  });
+
+  document
+    .querySelector(".main-content-link")
+    .addEventListener("click", function (e) {
+      e.preventDefault();
+      document.querySelector("#main").scrollIntoView({
+        behavior: "smooth",
+      });
+      // Set focus to the main content
+      document.querySelector("#main").setAttribute("tabindex", "-1");
+      document.querySelector("#main").focus();
+    });
 });
