@@ -1,5 +1,5 @@
 ﻿Park,Lat,Long,Visited
-Acadia National Park,44.338974,-68.27343,No
+Acadia National Park,44.338974,-68.27343,Yes
 American Samoa National Park,14.2579,-170.686,No
 Arches National Park,38.733082,-109.592514,Yes
 Badlands National Park,43.6504,-102.4343,No
@@ -55,7 +55,7 @@ Sequoia National Park,36.5231,-118.552,Yes
 Shenandoah National Park,38.700516,-78.292694,Yes
 Theodore Roosevelt National Park,47.3352,-103.2491,No
 Virgin Islands National Park,18.3435,-64.7501,No
-Voyageurs National Park,48.4711,-92.8458,No
+Voyageurs National Park,48.4711,-92.8458,Yes
 White Sands National Park,32.77972,-106.171669,No
 Wind Cave National Park,43.4348,-102.8731,No
 Wrangell-St. Elias National Park,61.710445,-142.985687,No
